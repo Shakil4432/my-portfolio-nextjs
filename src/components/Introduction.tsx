@@ -61,7 +61,7 @@ const Introduction = () => {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="text-gray-400"
         >
-          I'm a Frontend Developer focused on crafting responsive and
+          I am a Frontend Developer focused on crafting responsive and
           user-friendly web applications using modern technologies like React.js
           and Tailwind CSS.
         </motion.p>
