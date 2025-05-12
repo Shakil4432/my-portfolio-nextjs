@@ -1,5 +1,11 @@
+import Blogs from "@/components/Blogs";
+
 const BlogPage = () => {
-  return <div>Blog Page</div>;
+  return (
+    <div>
+      <Blogs></Blogs>
+    </div>
+  );
 };
 
 export default BlogPage;

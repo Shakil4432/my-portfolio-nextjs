@@ -1,98 +1,130 @@
 "use client";
-
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
-import { DiReact, DiCss3, DiDatabase, DiFirebase } from "react-icons/di";
-import { FaKey } from "react-icons/fa";
-import { TbBrandNextjs, TbBrandTypescript } from "react-icons/tb";
+import Image from "next/image";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 
-interface Skill {
-  name: string;
-  icon: ReactNode;
-  bgColor: string;
-}
+type TSkill = {
+  id: number;
+  skillName: string;
+  image: string;
+};
+
+const skills: TSkill[] = [
+  { id: 1, skillName: "JavaScript", image: "/js.jpg" },
+  { id: 2, skillName: "TypeScript", image: "/Ts.jpg" },
+  { id: 3, skillName: "React", image: "/react.png" },
+  { id: 4, skillName: "Next.js", image: "/nextjs.jpg" },
+  { id: 5, skillName: "Node.js", image: "/nodejs.png" },
+  { id: 6, skillName: "Tailwind CSS", image: "/tailwind.jpg" },
+  { id: 7, skillName: "MongoDB", image: "/mongodb.jpg" },
+  { id: 8, skillName: "Express.js", image: "/ex.jpg" },
+  { id: 9, skillName: "Redux", image: "/redux.png" },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, when: "beforeChildren" },
+  },
+};
+
+const slideVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const imageVariants = {
+  hover: {
+    scale: 1.1,
+    transition: { duration: 0.3, ease: "easeOut" },
+  },
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, delay: 0.2, ease: "easeOut" },
+  },
+};
 
 const Skills = () => {
-  const skills: Skill[] = [
-    {
-      name: "React.js",
-      icon: <DiReact className="text-6xl text-blue-500" />,
-      bgColor: "#61dafb",
-    },
-    {
-      name: "Tailwind",
-      icon: <DiCss3 className="text-6xl text-blue-200" />,
-      bgColor: "#38bdf8",
-    },
-    {
-      name: "MongoDB",
-      icon: <DiDatabase className="text-6xl text-green-200" />,
-      bgColor: "#47a248",
-    },
-    {
-      name: "Firebase",
-      icon: <DiFirebase className="text-6xl text-yellow-600" />,
-      bgColor: "#ffca28",
-    },
-    {
-      name: "JWT",
-      icon: <FaKey className="text-6xl text-gray-700" />,
-      bgColor: "#8b8b8b",
-    },
-    {
-      name: "Next.js",
-      icon: <TbBrandNextjs className="text-6xl text-black dark:text-white" />,
-      bgColor: "#000000",
-    },
-    {
-      name: "TypeScript",
-      icon: <TbBrandTypescript className="text-6xl text-blue-700" />,
-      bgColor: "#3178c6",
-    },
-  ];
-
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="mt-10 mx-auto p-10 rounded-lg space-y-6"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+      variants={containerVariants}
+      className="md:w-[90%] w-[95%] mx-auto pt-32 pb-20"
     >
       <motion.h2
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-4xl font-bold mb-12 text-center text-black"
+        className="text-4xl md:text-5xl lg:text-6xl flex items-center justify-center p-8 font-bold text-white mb-8"
+        variants={{
+          hidden: { opacity: 0, x: -50 },
+          visible: {
+            opacity: 1,
+            x: 0,
+            transition: { type: "spring", stiffness: 100 },
+          },
+        }}
       >
-        Professional & Technical Skills
+        My Skills
       </motion.h2>
-      <motion.ul
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="grid grid-cols-2 lg:flex items-center justify-center gap-10"
+
+      <Swiper
+        loop
+        speed={600}
+        modules={[Navigation]}
+        breakpoints={{
+          320: { slidesPerView: 2, spaceBetween: 8 },
+          480: { slidesPerView: 3, spaceBetween: 8 },
+          640: { slidesPerView: 4, spaceBetween: 10 },
+          768: { slidesPerView: 5, spaceBetween: 10 },
+          1024: { slidesPerView: 6, spaceBetween: 12 },
+          1400: { slidesPerView: 7, spaceBetween: 14 },
+        }}
       >
         {skills.map((skill, index) => (
-          <motion.li
-            key={index}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 * index }}
-            className="text-center transform transition duration-300 hover:scale-110 hover:rotate-6"
-          >
-            <div
-              className="flex items-center justify-center w-24 h-24 mx-auto mb-4 rounded-full shadow-lg"
-              style={{
-                backgroundColor: skill.bgColor,
-                transform: "rotate(45deg)",
-              }}
+          <SwiperSlide key={skill.id}>
+            <motion.div
+              variants={slideVariants}
+              custom={index}
+              className="flex flex-col items-center justify-center cursor-pointer"
             >
-              <div style={{ transform: "rotate(-45deg)" }}>{skill.icon}</div>
-            </div>
-            <p className="text-xl font-bold text-black">{skill.name}</p>
-          </motion.li>
+              <motion.div
+                className="relative"
+                whileHover="hover"
+                initial="visible"
+              >
+                <motion.div
+                  variants={imageVariants}
+                  className="w-[200px] h-[200px] rounded-full overflow-hidden border-4 border-blue-400 shadow-lg bg-[#181a2a] transition-shadow duration-300 hover:shadow-blue-400/80 flex items-center justify-center"
+                >
+                  <Image
+                    src={skill.image}
+                    alt={skill.skillName}
+                    width={200}
+                    height={200}
+                    className="rounded-full object-cover w-full h-full"
+                  />
+                </motion.div>
+              </motion.div>
+
+              <motion.div
+                variants={textVariants}
+                className="mt-4 text-white font-bold text-sm text-center tracking-wide"
+              >
+                {skill.skillName}
+              </motion.div>
+            </motion.div>
+          </SwiperSlide>
         ))}
-      </motion.ul>
+      </Swiper>
     </motion.div>
   );
 };
