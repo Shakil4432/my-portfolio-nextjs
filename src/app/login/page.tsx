@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -26,19 +27,23 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-sm w-full text-center">
-        <h2 className="text-2xl font-bold mb-4 text-gray-700">Login</h2>
-        <p className="text-gray-500 mb-6">Sign in to access your dashboard</p>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="bg-gray-900 shadow-2xl rounded-xl p-8 max-w-sm w-full text-center border border-gray-800"
+      >
+        <h2 className="text-3xl font-bold mb-4 text-white">Login</h2>
+        <p className="text-gray-400 mb-6">Sign in to access your dashboard</p>
 
-        {/* Email & Password Login */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
           <input
@@ -46,36 +51,41 @@ const LoginPage = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="mt-4 w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white rounded-lg shadow-lg transition-all duration-300"
           >
             Login
-          </button>
+          </motion.button>
         </form>
 
         <div className="my-4 text-gray-500">OR</div>
 
-        {/* Social Logins */}
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-          className="w-full flex items-center justify-center space-x-3 p-3 border rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300"
+          className="w-full flex items-center justify-center space-x-3 p-3 bg-white/10 border border-gray-700 rounded-lg text-white hover:bg-white/20 transition duration-300"
         >
           <FaGoogle className="text-red-500" />
           <span>Sign in with Google</span>
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
-          className="mt-4 w-full flex items-center justify-center space-x-3 p-3 border rounded-lg text-gray-700 hover:bg-gray-100 transition duration-300"
+          className="mt-4 w-full flex items-center justify-center space-x-3 p-3 bg-white/10 border border-gray-700 rounded-lg text-white hover:bg-white/20 transition duration-300"
         >
-          <FaGithub className="text-black" />
+          <FaGithub className="text-white" />
           <span>Sign in with GitHub</span>
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </div>
   );
 };

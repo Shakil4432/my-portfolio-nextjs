@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { signOut } from "next-auth/react";
 
 type userProps = {
   user?: {
@@ -49,9 +50,20 @@ export default function Navbar({ session }: { session: userProps | null }) {
           </div>
 
           <div className="ml-auto flex items-center space-x-4">
-            <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white rounded-md shadow-md">
-              {session?.user ? "Logout" : "Login"}
-            </button>
+            {session?.user ? (
+              <button
+                onClick={() => signOut()}
+                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white rounded-md shadow-md"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link href="/login">
+                <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 text-white rounded-md shadow-md">
+                  Login
+                </button>
+              </Link>
+            )}
 
             <button
               onClick={toggleMenu}
@@ -84,9 +96,15 @@ export default function Navbar({ session }: { session: userProps | null }) {
               )}
             </div>
             <div className="px-4 pb-4">
-              <button className="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md shadow-md">
-                {session?.user ? "Logout" : "Login"}
-              </button>
+              {session?.user ? (
+                <button className="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md shadow-md">
+                  Logout
+                </button>
+              ) : (
+                <Link href="/login">
+                  <button className="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md shadow-md"></button>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}

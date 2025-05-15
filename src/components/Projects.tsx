@@ -62,8 +62,8 @@ const projects: Project[] = [
 
 const Projects = () => {
   return (
-    <div className="mt-10 mx-auto px-16 py-10 bg-gray-900">
-      <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold text-center mb-10">
+    <div className="mt-10 mx-auto px-16 py-16 bg-gray-900">
+      <h2 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold text-center mb-20">
         My Projects
       </h2>
 

@@ -60,10 +60,10 @@ const Skills = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "0px 0px -100px 0px" }}
       variants={containerVariants}
-      className="md:w-[90%] w-[95%] mx-auto pt-32 pb-20"
+      className="md:w-[90%] w-[95%] mx-auto pt-32 py-16"
     >
       <motion.h2
-        className="text-4xl md:text-5xl lg:text-6xl flex items-center justify-center p-8 font-bold text-white mb-8"
+        className="text-4xl md:text-5xl lg:text-6xl flex items-center justify-center p-8 font-bold text-white mb-20"
         variants={{
           hidden: { opacity: 0, x: -50 },
           visible: {
